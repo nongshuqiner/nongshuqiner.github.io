@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nongshuqiner.github.io/</id>
-    <title>nongshuqiner</title>
-    <updated>2021-11-26T10:18:02.206Z</updated>
+    <title>yanmoer&apos;s blog</title>
+    <updated>2021-11-26T10:41:50.496Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nongshuqiner.github.io/"/>
     <link rel="self" href="https://nongshuqiner.github.io/atom.xml"/>
     <subtitle>悟时超十地三乘，凝滞了四生六道...</subtitle>
     <logo>https://nongshuqiner.github.io/images/avatar.png</logo>
     <icon>https://nongshuqiner.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, nongshuqiner</rights>
+    <rights>All rights reserved 2021, yanmoer&apos;s blog</rights>
     <entry>
         <title type="html"><![CDATA[生成树结构（generate tree）]]></title>
         <id>https://nongshuqiner.github.io/post/generate-tree/</id>
