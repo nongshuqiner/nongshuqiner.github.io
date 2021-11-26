@@ -120,7 +120,7 @@ $(document).ready(function(){
                         src='https://nongshuqiner.github.io//media/images/music.png' alt="音乐播放器" class="musicbtn"></i></a>
         </div>
         <div class="avatar-border">
-            <img src="https://nongshuqiner.github.io//images/avatar.png?v=1637937343891" class="avatar">
+            <img src="https://nongshuqiner.github.io//images/avatar.png?v=1637941495357" class="avatar">
         </div>
         <div class="sitename">yanmoer&#39;s blog</div>
         <span class="description" data-text='["悟时超十地三乘，凝滞了四生六道..."]'>&nbsp;</span>
@@ -200,6 +200,12 @@ $(document).ready(function(){
         
         
 
+        
+        <div class="mchocie description">
+            <a data-pjax href="https://nongshuqiner.github.io//talk" class="menubutton" style="margin-right: 15px;">
+                <i><img class="icon menuicon" src="" alt="说说"></i>&nbsp;<span data-text="说说">说说</span>
+            </a>
+        </div>
         
         
         
@@ -422,7 +428,7 @@ $(document).ready(function(){
     get();
 
     function get() {
-        var t = JSON.parse('[]');
+        var t = JSON.parse('[{"author":"历史","img":"","text":"我爱大明，就像大明爱我一样——李自成","time":"2021年11月26日"},{"author":"感叹","img":"","text":"角马会在什么时候离开塞伦盖蒂呢？当然是塞伦盖蒂水源和草料不足，而马赛马拉容得下它们的时候。","time":"2021年11月26日"},{"author":"社会","img":"","text":"目前经济的主要问题是，我们大半的经济之信心不根植于持续创造价值的企业，目前先进生产力的事实代表；而是印出钞来，经手银行套在一个个负债数百万的可怜鬼的脖颈上，还坚信他们定能还完。","time":"2021年11月26日"},{"author":"历史","img":"","text":"特定的路线产生特定的利益。特定的利益产生特定的人群，特定人群强化特定的利益。","time":"2021年11月26日"},{"author":"社会","img":"","text":"一个理想主义的英雄，如果空有正义感而不掌握斗争的正确方法，只能像流星一样转瞬即逝。","time":"2021年11月26日"},{"author":"历史","img":"","text":"人们创造历史，不是随心所欲地创造历史，而是在现实的基础上创造历史，我们不能脱离处于时代中无产阶级的现实需要，不能超越无产阶级现实条件，只有同无产阶级一起通过一系列现实的、实践的活动才能够创造历史。","time":"2021年11月26日"},{"author":"历史","img":"","text":"在关于罗马共和国内部斗争的古代史料中，只有阿庇安一人清楚明白地告诉我们，这一斗争归根到底是为什么进行的，即为土地所有权进行的","time":"2021年11月26日"},{"author":"历史","img":"","text":"终有一天，我会统一匈奴五部，杀到洛阳和长安，把晋国那些高高在上的打翻在地，把自以为是的踩在脚下，让天生高贵的流干他们的每一滴血，让自以为能够操控我们命运的人，用性命来偿还他们犯下的罪孽和错误。------挛鞮元海（汉名：刘渊，字元海）","time":"2021年11月26日"},{"author":"知识","img":"","text":"精于基础，广于工具：应用是理论的扩展，工具是知识的延伸。","time":"2021年11月26日"},{"author":"感叹","img":"","text":"不演化的世界，是绝望的粒子；演化的世界，以概率波的形式给予人希望。","time":"2021年11月26日"},{"author":"小曲","img":"","text":"只身独看，酒到泪成，长是黯淡沧桑，无来由。 黯乡魂，山川不旧，该当悲无欢忧。  都来此事，别去几回，不算灯尽楼空，心上求。 问烟雨，门前岁岁，哪堪曾算风流。","time":"2021年11月26日"},{"author":"禅悟","img":"","text":"深度洞察并捕捉事物的本源和底层逻辑，而后在内心中大致演化出此事物变化方向或终极形态且符合逻辑，并能有条理的表述或实践出来。","time":"2021年11月26日"},{"author":"小曲","img":"","text":"连雨黄昏晚，忆少年，天地安危不知，入腌臜场，为轻薄儿。 斗殴走课，好闲惹昏账，多荒唐。 计疯颠无算，拟作深情，不胭烟雨，纵马放疏狂。","time":"2021年11月26日"},{"author":"感叹","img":"","text":"我曾探求期货中统一性根据究竟是什么，如何理解和把握多种多样、变化无常的现象后面起支配作用的最为根本的原因和原理！求来求去无所知，单纯的本体论思辨求证，让我忽视了我自己其实才是一个最大的阻碍因素，我自身的认识与理解，限制了我对相关知识的探求范围。  即没有有建立起比较完整的阅读习惯、没有建立成体系化的学习过程，对于客观唯物文史哲方面的熏陶和思考体系还不成熟，但又急于寻求和掌握世界真相这么宏大的命题，那么结果就早已注定了。","time":"2021年11月26日"}]');
         talkindex = t.length - 1;
         for (var i = 0; i <= t.length - 1; i++) {
             var d = {};
@@ -925,6 +931,8 @@ menulist.eq(i).show();
         </li>
         
         
+        
+        <li><a data-pjax href="https://nongshuqiner.github.io//talk">说说</a></li>
         
         
           
