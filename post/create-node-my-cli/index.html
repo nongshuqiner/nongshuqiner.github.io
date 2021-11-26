@@ -2,22 +2,197 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <meta name="description" content="1.安装node
+你需要安装node。安装好后可以通过 node -v 查看node版本。
+2.创建文件与初始化
+我用的是Mac（windows同理），在终端，任意目录下，执行下面命令：
+mkdir my-cli
+cd my-cli
+npm..." />
+    <meta name="keywords" content="前端开发,node" />
     <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
     <link rel="stylesheet" href="https://nongshuqiner.github.io//styles/main.css">
-    <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/font-awesome.css">
-    <meta name="description" content="悟时超十地三乘，凝滞了四生六道..." />
-    <title>yanmoer's blog</title>
+    <!-- 代码渲染风格css -->
+    
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/styles/rainbow.min.css">
+    
+    <!-- 代码高亮插件 -->
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+    <!-- 代码复制插件 -->
+    <script src="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/js/clipboard.min.js"></script>
+    <!-- live2d插件 -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/850552586/ericamcdn@0.1/css/live2d.css">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+    <!-- 最新版本的 Bootstrap 核心 CSS 文件 -->
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.13.1/css/all.min.css" rel="stylesheet">
+    <!-- 数学公式 -->
+    
+    <title>NodeJS: 从零开始做一个类似vue-cli的简单脚手架</title>
+
+    <!-- 大纲索引css调整 -->
+    
+    <style>
+        .markdownIt-TOC {
+            margin-left: 28%;
+            padding-left: 2px;
+            width: 80%;
+        }
+
+        .markdownIt-TOC li {
+            padding-left: 8%;
+        }
+    </style>
+    
 </head>
 
-
 <body>
+    <div id="landlord">
+        <div class="message" style="opacity:0"></div>
+        <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+    </div>
+    <div id="domainname" style="display:none">https://nongshuqiner.github.io/</div>
     <div id="content">
-        <div class="nav-large">
-            <div class="row">
-                <div class="side"><head>
+        <div>
+            <!----------- 移动端导航栏👇 ----------------->
+            <div id="bar">
+                <head>
+  <!-- 引入Bootstrap核心样式文件 -->
+  <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/bootstrap.min.css">
+</head>
+<style>
+  .navmobile {
+    z-index: 15;
+    max-height: 40vh;
+    overflow-y: scroll;
+    overflow-x: hidden;
+  }
+
+  @media screen and (max-width: 1200px) {
+    .navbar {
+      max-width: 100vw;
+    }
+  }
+
+  @media screen and (max-width:1200px) and (min-width: 768px) {
+    @media (min-width: 768px) {
+      .navbar-nav {
+        float: right;
+        margin: 0;
+      }
+    }
+  }
+
+  @media screen and (max-width:768px) {
+    .mbapspan {
+      padding: 0;
+    }
+  }
+</style>
+<div class="pjaxloading"  onclick="pjaxloadingClose()">
+  <div class="loadingbackground"></div>
+  <div id="loading">
+    <div class="loading">
+    </div>
+  </div>
+</div>
+<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
+  <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
+        aria-expanded="false" id="barbutton">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a data-pjax class="navbar-brand" href="https://nongshuqiner.github.io/">yanmoer&#39;s blog&nbsp;&nbsp;|</a>
+      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
+          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="barmenu">
+      <ul class="nav navbar-nav">
+        
+        
+        <li>
+          <a data-pjax href="/">
+            首页
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/archives">
+            归档
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/tags">
+            标签
+          </a>
+        </li>
+        
+        
+        
+        <li>
+          <a data-pjax href="/post/about">
+            关于
+          </a>
+        </li>
+        
+        
+        
+        
+          
+        <li><a data-pjax href="https://nongshuqiner.github.io//friends">友链</a></li>
+
+        
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+
+  <!-- 引入jQuery核心js文件 -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
+  <script>
+    let btstate = false;
+    var bt = $("#barbutton");
+    var bm = $("#barmenu");
+    bt.click(function () {
+      dropdown();
+    })
+    function dropdown() {
+      console.log(btstate);
+      //下拉
+      if (btstate == false) {
+        bt.removeClass("collapsed");
+        bt.attr("aria-expanded", "true");
+        bm.attr("aria-expanded", "true")
+        bm.fadeIn(700);
+        btstate = true;
+      }
+      else {
+        bt.addClass("collapsed");
+        bt.attr("aria-expanded", "false");
+        bm.removeClass("in");
+        bm.hide();
+        bm.attr("aria-expanded", "false");
+        btstate = false;
+      }
+    }
+  </script> 
+            </div>
+            <!----------- 移动端导航栏👆 ----------------->
+
+            <!--------------- pc端菜单栏👇 ---------------->
+            <div class="side"><head>
     <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://nongshuqiner.github.io//styles/main.css">
     
@@ -790,8 +965,11 @@ menulist.eq(i).show();
 
 
 </div>
-                <!-- ----------------左侧菜单栏html 👇-------------------------------------->
-                
+            <!--------------- pc端菜单栏👆 ---------------->
+
+            <!-- ----------------左侧菜单栏html 👇-------------------------------------->
+            
+            <div>
                 <div id="tab1" class="tab">
                     <div class="bars">
                         <span></span>
@@ -801,273 +979,446 @@ menulist.eq(i).show();
                     <div class="close"></div>
                 </div>
                 <div class="col-md-1 col-lg-3"></div>
-                <div class="mobilebar"><head>
-  <!-- 引入Bootstrap核心样式文件 -->
-  <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/bootstrap.min.css">
-</head>
-<style>
-  .navmobile {
-    z-index: 15;
-    max-height: 40vh;
-    overflow-y: scroll;
-    overflow-x: hidden;
-  }
+                <!-- main标签，pjax渲染时加载以下内容👇 -->
+                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7" style="padding:0;">
+                    <link rel="stylesheet" href="https://nongshuqiner.github.io//media/css/font-awesome.css">
 
-  @media screen and (max-width: 1200px) {
-    .navbar {
-      max-width: 100vw;
-    }
-  }
-
-  @media screen and (max-width:1200px) and (min-width: 768px) {
-    @media (min-width: 768px) {
-      .navbar-nav {
-        float: right;
-        margin: 0;
-      }
-    }
-  }
-
-  @media screen and (max-width:768px) {
-    .mbapspan {
-      padding: 0;
-    }
-  }
-</style>
-<div class="pjaxloading"  onclick="pjaxloadingClose()">
-  <div class="loadingbackground"></div>
-  <div id="loading">
-    <div class="loading">
-    </div>
-  </div>
-</div>
-<nav class="navbar navbar-inverse navbar-fixed-top navmobile">
-  <div class="container-fluid">
-    <!-- Brand and toggle get grouped for better mobile display -->
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#barmenu"
-        aria-expanded="false" id="barbutton">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a data-pjax class="navbar-brand" href="https://nongshuqiner.github.io/">yanmoer&#39;s blog&nbsp;&nbsp;|</a>
-      <span class="navbar-brand mbapspan"><i id="mbaplayer" class="fa fa-play-circle-o" aria-hidden="true"
-          style="font-size: 28px;top: 12px;position: absolute;" onclick="aplayerPlay();"></i></span>
-    </div>
-
-    <!-- Collect the nav links, forms, and other content for toggling -->
-    <div class="collapse navbar-collapse" id="barmenu">
-      <ul class="nav navbar-nav">
-        
-        
-        <li>
-          <a data-pjax href="/">
-            首页
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/archives">
-            归档
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/tags">
-            标签
-          </a>
-        </li>
-        
-        
-        
-        <li>
-          <a data-pjax href="/post/about">
-            关于
-          </a>
-        </li>
-        
-        
-        
-        
-          
-        <li><a data-pjax href="https://nongshuqiner.github.io//friends">友链</a></li>
-
-        
-        </ul>
-      </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
-  </nav>
-
-
-  <!-- 引入jQuery核心js文件 -->
-  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js"></script>
-  <script>
-    let btstate = false;
-    var bt = $("#barbutton");
-    var bm = $("#barmenu");
-    bt.click(function () {
-      dropdown();
-    })
-    function dropdown() {
-      console.log(btstate);
-      //下拉
-      if (btstate == false) {
-        bt.removeClass("collapsed");
-        bt.attr("aria-expanded", "true");
-        bm.attr("aria-expanded", "true")
-        bm.fadeIn(700);
-        btstate = true;
-      }
-      else {
-        bt.addClass("collapsed");
-        bt.attr("aria-expanded", "false");
-        bm.removeClass("in");
-        bm.hide();
-        bm.attr("aria-expanded", "false");
-        btstate = false;
-      }
-    }
-  </script> 
-                </div>
-                <div id="main" class="col-xs-12 col-sm-12 col-md-12 col-lg-7">
-                    <div class="mobilebar">
-                        <img src="" alt="" class="plbg">
-<script>
-    var bgchoice = "default";
-    if(bgchoice=='default')
-        var plbgurl = "/media/images/custom-mobileplbgimage.jpg"
-    else  
-        var plbgurl = ""
-    $(".plbg").attr("src",plbgurl);
-    $(".plbg").fadeIn(200);
-</script>
-                    </div>
-                    <body">
-    <div class="archives-bg"></div>
-    <div class="archives-content">
-        
-        
-        <div class="archives-year">2021</div>
-        <ul>
+<body>
+    <div class="allcontent" id="postdetail">
+        <div class="postshow postpadding" style="padding-bottom: 0;">
             
-            
-            <li><span></span>
-                <div>
-                  <a data-pjax href="https://nongshuqiner.github.io/post/create-node-my-cli/" class="post">
-                    <div class="archives-title">NodeJS: 从零开始做一个类似vue-cli的简单脚手架</div>
-                    <div class="archives-time">2021-11-26</div>
-                </a>
-                    
-                </div>
-            </li>
-            
-            
-            
-            <li><span></span>
-                <div>
-                  <a data-pjax href="https://nongshuqiner.github.io/post/generate-tree/" class="post">
-                    <div class="archives-title">生成树结构（generate tree）</div>
-                    <div class="archives-time">2021-11-26</div>
-                </a>
-                    
-                </div>
-            </li>
-            
-            
-        </ul>
-        
-    </div>
-</body">
-                    <div>
-                        <div class="pcpagi">
-    <div class="pagi">
-        <ul>
-            
-            <li><a style="width:100px">&nbsp;</a></li>
-            
-                    <li><a id="page1">1</a></li>
-                    <li><a id="page2" class="active">2</a></li>
-                    <li><a id="page3">3</a></li>
-                    
-            <li><a style="width:100px">&nbsp;</a></li>
-            
-                </ul>
-    </div>
-</div>
-
-<div id="pagination-prev" style="display:none"> 
-</div>
-<div id="pagination-next" style="display:none"> </div>
-
-<div class="pagination-container">
-      
-    
-</div>
-
-<script>
-    var prevstr = document.getElementById("pagination-prev").innerHTML;
-    var nextstr = document.getElementById("pagination-next").innerHTML;
-    var page1 = document.getElementById("page1");
-    var page2 = document.getElementById("page2");
-    var page3 = document.getElementById("page3");
-    page1.innerHTML = '-';
-    page2.innerHTML = '1';
-    page3.innerHTML = '-';
-    if (prevstr.length > 5) {
-        if (prevstr.indexOf("page/") != -1) {
-            var prevnum = parseInt(prevstr.split("page/")[1]);
-            page1.innerHTML = prevnum;
-            page2.innerHTML = prevnum + 1;
-        } else {
-            page1.innerHTML = 1;
-            page2.innerHTML = 2;
-        }
-    }
-    if (nextstr.indexOf("page/") != -1) {
-        var nextnum = parseInt(nextstr.split("page/")[1]);
-        page3.innerHTML = nextnum;
-        page2.innerHTML = nextnum - 1;
-    }
-</script>
-                        <div style="padding-bottom:10%"></div>
-                    </div>
-                </div>
-                <div class="col-md-1 col-lg-2"></div>
-                <!-- ----------------左侧菜单栏html 👆-------------------------------------->
-                <!------------------ 顶部菜单栏html👇--------->
+            <div class="postdetailimg">
                 
-                <!------------------ 顶部菜单栏html👆--------->
-                <div class="col-xs-6 col-sm-3"></div>
+                <img src="/media/images/custom-postdefaultimage.jpg" class="postimage">
+                
             </div>
-            
-        </div>
-        <div id="bg">
-        </div>
-        <!------- 背景图加载方式👇----- -->
-        <div id="bgchoice" style="display: none">default
+            <div class="postinfo-detail">
+                <div class="postdate"><i class="fa fa-calendar"></i>2021-11-26</div>
+            <div class="poststatus postdate"><i class="fa fa-clock-o"></i> 6 min read</div>
+            <div class="posttag">
+                
+                <a data-pjax href="https://nongshuqiner.github.io/tag/eNRTmfinS/" class="postlink">
+                    <i class="fa fa-tag"></i> 前端开发
+                </a>
+                
+                <a data-pjax href="https://nongshuqiner.github.io/tag/mt1N4wGKS/" class="postlink">
+                    <i class="fa fa-tag"></i> node
+                </a>
+                
             </div>
-            
-            <div id="bgurl" style="display:none">/media/images/custom-bgimage.jpg</div>
-               
-        <!------- 背景图加载方式👆----- -->
-    </div>
+        </div>
+        
+        <div id="articlecontent">
+            <div id="texttitle" style="text-align: center">
+                <h2 id="ptitle">NodeJS: 从零开始做一个类似vue-cli的简单脚手架</h2>
+                <!-- id 将作为查询条件 -->
+                <div id="pl" style="display:none">https://nongshuqiner.github.io/post/create-node-my-cli/</div>
+                <div id="rootaddr" style="display:none">https://nongshuqiner.github.io/</div>
+                
+            </div>
+            <div class="text ">
+                <h2 id="1安装node">1.安装<a href="https://nodejs.org/zh-cn/">node</a></h2>
+<p>你需要安装node。安装好后可以通过 <code>node -v</code> 查看node版本。</p>
+<h2 id="2创建文件与初始化">2.创建文件与初始化</h2>
+<p>我用的是Mac（windows同理），在终端，任意目录下，执行下面命令：</p>
+<pre><code>mkdir my-cli
+cd my-cli
+npm init -y
+</code></pre>
+<h2 id="3创建项目结构">3.创建项目结构</h2>
+<pre><code>mkdir bin script docs
+touch index.js REDEAD.md bin/my-cli.js script/init.js
+</code></pre>
+<h2 id="4安装必要包">4.安装必要包</h2>
+<pre><code>npm install chalk co-prompt co commander download-git-repo inquirer ora --save-dev
+</code></pre>
+<p>包说明：<br>
+<a href="https://www.npmjs.com/package/download-git-repo">download-git-repo</a><br>
+<a href="https://www.npmjs.com/package/commander">commander</a><br>
+<a href="https://www.npmjs.com/package/chalk">chalk</a><br>
+<a href="https://www.npmjs.com/package/co-prompt">co-prompt</a><br>
+<a href="https://www.npmjs.com/package/co">co</a><br>
+<a href="https://www.npmjs.com/package/inquirer">inquirer</a><br>
+<a href="https://www.npmjs.com/package/ora">ora</a></p>
+<h2 id="5修改packagejson">5.修改package.json</h2>
+<p>在package.json文件中加入bin命令</p>
+<pre><code>{
+  &quot;name&quot;: &quot;my-cli&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;bin&quot;: {
+    &quot;my-cli&quot;: &quot;./bin/my-cli.js&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;chalk&quot;: &quot;^4.1.0&quot;,
+    &quot;co&quot;: &quot;^4.6.0&quot;,
+    &quot;co-prompt&quot;: &quot;^1.0.0&quot;,
+    &quot;commander&quot;: &quot;^7.1.0&quot;,
+    &quot;download-git-repo&quot;: &quot;^3.0.2&quot;,
+    &quot;inquirer&quot;: &quot;^8.0.0&quot;,
+    &quot;ora&quot;: &quot;^5.4.0&quot;
+  }
+}
+</code></pre>
+<h2 id="6其他辅助文件配置">6.其他辅助文件配置</h2>
+<p>新建 <code>.editorconfig</code>，<code>.gitignore</code>等文件</p>
+<pre><code>touch .editorconfig .gitignore .npmrc
+</code></pre>
+<p>.editorconfig</p>
+<pre><code>root = true
 
-        <div id="landlord">
-            <div class="message" style="opacity:0"></div>
-            <canvas id="live2d" width="240" height="250" class="live2d"></canvas>
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+</code></pre>
+<p>.gitignore</p>
+<pre><code>.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</code></pre>
+<p>.npmrc</p>
+<pre><code>save-exact=true
+</code></pre>
+<p>至此，项目结构如下：</p>
+<figure data-type="image" tabindex="1"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/1.png" alt="项目结构" loading="lazy"></figure>
+<h2 id="7编写内容">7.编写内容</h2>
+<p><code>bin/my-cli.js</code> 是主文件，作为整个脚本运行的入口。</p>
+<p><code>index.js</code>我们作为主要内容文件。</p>
+<p><code>bin/my-cli.js</code></p>
+<pre><code>#!/usr/bin/env node
+require('../index')
+</code></pre>
+<blockquote>
+<p>注意：文件开头需要加上 #! /usr/bin/env node，用来说运行环境。</p>
+</blockquote>
+<p><code>index.js</code></p>
+<pre><code>
+const {
+    resolve
+} = require(&quot;path&quot;)
+const program = require(&quot;commander&quot;)
+const packageJson = require(&quot;./package.json&quot;)
+
+const res = command =&gt; resolve(__dirname, 'script/', command)
+
+process.env.NODE_PATH = __dirname + &quot;/node_modules&quot;
+
+console.log(process.env.NODE_PATH, res(&quot;init&quot;))
+
+program
+    .version(packageJson.version)
+
+program
+    .usage(&quot;&lt;command&gt;&quot;)
+
+program
+    .command(&quot;init&quot;)
+    .description(&quot;Generate a new node project&quot;)
+    .alias(&quot;i&quot;)
+    .action(() =&gt; {
+        require(res(&quot;init&quot;))
+    })
+
+program.parse(process.argv)
+
+
+// 判断终端上输入出来bin中的命令是否还有其他值，如果没有终端会直接输出help
+if (!program.args || program.args.length === 0) {
+    program.help()
+}
+</code></pre>
+<p><code>script/init.js</code>是运行 <code>my-cli init</code>时，执行的内容，如下：</p>
+<pre><code>const inquirer = require(&quot;inquirer&quot;);
+const program = require(&quot;commander&quot;);
+const chalk = require(&quot;chalk&quot;);
+const download = require(&quot;download-git-repo&quot;);
+const ora = require(&quot;ora&quot;);
+const spinner = ora(&quot;Downloading please wait......&quot;);
+const fs = require(&quot;fs&quot;);
+const path = require(&quot;path&quot;);
+const option = program.parse(process.argv).args[0];
+const defaultName = typeof option === &quot;string&quot; ? option : &quot;my-app&quot;;
+
+const questionList = [{
+  type: 'input',
+  name: 'Project name',
+  message: 'Project name',
+  default: defaultName,
+  filter(val) {
+    return val.trim()
+  },
+  validate(val) {
+    const validate = (val.trim().split(&quot; &quot;)).length === 1
+    return validate || 'Project name is not allowed to have spaces ';
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: 'input',
+  name: 'description',
+  message: 'Project description',
+  default: '这是一个项目',
+  validate(val) {
+    return true;
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: 'input',
+  name: 'author',
+  message: 'Author',
+  default: 'author',
+  validate(val) {
+    return true;
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: &quot;list&quot;,
+  name: &quot;program type&quot;,
+  message: &quot;程序类型&quot;,
+  choices: [
+    &quot;Nodejs&quot;,
+    &quot;Typescript&quot;
+  ],
+  default: &quot;nodejs&quot;,
+  filter: function(val) {
+    return val.toLowerCase();
+  }
+}]
+
+// 根据用户选择的语言去配置对应的配置文件
+inquirer.prompt(questionList).then(answers =&gt; {
+  console.log(answers)
+  spinner.start();
+  setTimeout(() =&gt; {
+    spinner.stop();
+    console.log(chalk.red(&quot;项目初始化成功&quot;));
+  }, 500)
+})
+</code></pre>
+<h2 id="8调试">8.调试</h2>
+<p>在运行代码时，需要本地调试，可通过下面命令的形式调试。</p>
+<pre><code>node ./bin/my-cli.js
+</code></pre>
+<p>例：</p>
+<figure data-type="image" tabindex="2"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/2.png" alt="node ./bin/my-cli.js" loading="lazy"></figure>
+<h2 id="9全局安装">9.全局安装</h2>
+<p>我们进入npm全局安装的文件里：</p>
+<pre><code>cd /usr/local/lib/node_modules
+</code></pre>
+<blockquote>
+<p>注意：我的是mac，如果你是window此方式不能进去，你需要自己寻找一下具体目录。</p>
+</blockquote>
+<p>我们可以看到目前我们全局安装的npm包，如下：</p>
+<figure data-type="image" tabindex="3"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/3.png" alt="全局已经安装的npm包" loading="lazy"></figure>
+<p>在我们 <code>my-cli</code> 目录下执行：</p>
+<pre><code>npm install -g
+</code></pre>
+<blockquote>
+<p>每当你修改内容时，需要再次npm install -g，否则内容将不会生效</p>
+</blockquote>
+<p>这时，我们可以看到全局安装npm包的目录下多了我们的脚手架：</p>
+<figure data-type="image" tabindex="4"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/4.png" alt="/usr/local/lib/node_modules" loading="lazy"></figure>
+<p>然后，我们找到任意目录执行：</p>
+<pre><code>my-cli
+</code></pre>
+<p>就可以看到命令行对于我们脚手架的提示了：</p>
+<figure data-type="image" tabindex="5"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/5.png" alt="my-cli" loading="lazy"></figure>
+<p>然后我们执行我们的脚手架的安装命令：</p>
+<pre><code>my-cli init
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/6.png" alt="my-cli init" loading="lazy"></figure>
+<blockquote>
+<p>由于本程序最后我只是做个简单的输出演示操作，故此没有任何文件产生。</p>
+</blockquote>
+<h2 id="10将编写好的cli发布到npm中">10.将编写好的cli发布到npm中</h2>
+<p>参考：<a href="https://www.jianshu.com/p/14e5b3917d19">发布一个 npm 包，构建自己的第三方库</a></p>
+<h2 id="11cli脚手架的使用">11.cli脚手架的使用</h2>
+<p>命令行输入my-cli查看帮助</p>
+
+            </div>
+            <hr style="width: 80%;">
+            
+            <div class="donateContainer">
+                <span class="donatebtn">赏</span>
+            </div>
+            <div class="donateContainer">
+                <img src="" alt="" class="donate">
+            </div>
+            
+            <div class="postfooter">
+                <ul class="post-copyright">
+                    <li><strong>文章作者：</strong>yanmoer</li>
+            <li><strong>原文链接：</strong>https://nongshuqiner.github.io/post/create-node-my-cli/</li>
+            <li><strong>版权声明：</strong>本博客所有文章除特别声明外，均采用<i class="fa fa-fw fa-creative-commons"></i>BY-NC-SA
+                许可协议。转载请注明出处！</li>
+            </ul>
         </div>
-        <div id="domainname" style="display:none">https://nongshuqiner.github.io/
+        
+            <div class="shareContainer">
+                <div class="share" style="height:30px;background: white;">
+                    <a class="qq" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/qqs.png" alt=""></i></a>
+                    <a class="wechat" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/wechats.png" alt=""></i></a>
+                    <a class="weibo" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/weibos.png" alt=""></i></a>
+                    <a class="qzone" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/qzones.png" alt=""></i></a>
+                    <a class="douban" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/doubans.png" alt=""></i></a>
+                    <a class="facebook" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/facebooks.png" alt=""></i></a>
+                    <a class="twitter" href=""><i><img class="shareicon"
+                                src="https://nongshuqiner.github.io//media/images/twitter.png" alt=""></i></a>
+                </div>
+            </div>
+            
+        <div id="otherpost">
+            
+            
+            <a data-pjax class="next-post-pc" href="https://nongshuqiner.github.io/post/generate-tree/"  style="color: black;">
+                <div id="npcontainer">
+                    
+                    
+                    <img src="/media/images/custom-postdefaultimage.jpg" style="width: 100%;" class="opimg">
+                    
+                    
+                    <h4 class="optitle">生成树结构（generate tree）</h4>
+                </div>
+            </a>
+            <div class="next-post">
+                下一篇 <a  data-pjax href="https://nongshuqiner.github.io/post/generate-tree/">生成树结构（generate tree）</a>
+            </div>
+            
         </div>
+    </div>
+    </div>
+    </div>
+    <!-- 弹窗 -->
+    <div id="myModal" class="modal">
+        <img class="modal-content" id="img01">
+    </div>
+</body>
+<script>
+    //文章阅读热度
+    var pl = $("#pl").html();
+    var rootaddr = $("#rootaddr").html();
+    pl = pl.replace(rootaddr, "");
+    $("#hotnum").attr('id', pl);
+</script>
+                    <div class="toc-container">
+                        <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#1%E5%AE%89%E8%A3%85node">1.安装node</a></li>
+<li><a href="#2%E5%88%9B%E5%BB%BA%E6%96%87%E4%BB%B6%E4%B8%8E%E5%88%9D%E5%A7%8B%E5%8C%96">2.创建文件与初始化</a></li>
+<li><a href="#3%E5%88%9B%E5%BB%BA%E9%A1%B9%E7%9B%AE%E7%BB%93%E6%9E%84">3.创建项目结构</a></li>
+<li><a href="#4%E5%AE%89%E8%A3%85%E5%BF%85%E8%A6%81%E5%8C%85">4.安装必要包</a></li>
+<li><a href="#5%E4%BF%AE%E6%94%B9packagejson">5.修改package.json</a></li>
+<li><a href="#6%E5%85%B6%E4%BB%96%E8%BE%85%E5%8A%A9%E6%96%87%E4%BB%B6%E9%85%8D%E7%BD%AE">6.其他辅助文件配置</a></li>
+<li><a href="#7%E7%BC%96%E5%86%99%E5%86%85%E5%AE%B9">7.编写内容</a></li>
+<li><a href="#8%E8%B0%83%E8%AF%95">8.调试</a></li>
+<li><a href="#9%E5%85%A8%E5%B1%80%E5%AE%89%E8%A3%85">9.全局安装</a></li>
+<li><a href="#10%E5%B0%86%E7%BC%96%E5%86%99%E5%A5%BD%E7%9A%84cli%E5%8F%91%E5%B8%83%E5%88%B0npm%E4%B8%AD">10.将编写好的cli发布到npm中</a></li>
+<li><a href="#11cli%E8%84%9A%E6%89%8B%E6%9E%B6%E7%9A%84%E4%BD%BF%E7%94%A8">11.cli脚手架的使用</a></li>
+</ul>
+</li>
+</ul>
+
+                    </div>
+                    <div class="tog">
+                        <div class="toggleContainer">
+                            <div class="toggle">
+                                <i class="fas fa-angle-double-up"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👇 ------------------------->
+                    <div id="comment" class="comment">
+                        <div class="commentcontainer">
+                            
+                                
+                            
+                        </div>
+                    </div>
+                    <!---------------------------- 评论系统👆 ------------------------->
+                </div>
+                <!-- main标签，pjax渲染时加载以上内容👆 -->
+                <div class="col-md-1 col-lg-2"></div>
+                <div id="bg">
+                </div>
+            </div>
+            <!-- ----------------左侧菜单栏html 👆-------------------------------------->
+            
+        </div>
+        <!-- aplayer播放器加载👇 -->
+            
+        <!-- aplayer播放器加载👆 -->
+    </div>
+    
+
+    <!-- 背景图加载方式👇 -->
+    <div id="bgchoice" style="display: none">default
+                </div>
+                
+                <div id="bgurl" style="display:none">/media/images/custom-bgimage.jpg</div>
+                
+    <!-- 背景图加载方式👆 -->
 </body>
 
-</html>
-<!-------------------- live2d功能👇 --------------------------->
+<script>
+    //初始化
+    //更换twikoo头像
+    setTimeout(replaceAvatar,1000);
+    setTimeout(replaceAvatar,2000);
+    setTimeout(replaceAvatar,8000);
+    // --------为每张图片添加懒加载（lazyload）标签-->懒加载功能 👇------------
+    lazyload();
+    //为文章内所有代码块添加代码复制功能 👇
+    codeinit();
+    // ------代码高亮显示功能-------------
+    hljs.initHighlightingOnLoad();
+    if (shareChoice)
+        shareInit();
+    if (donateChoice)
+        donateInit();
+</script>
+
+<!------------------ 加载live2d模型功能（看板娘）👇 ---------------->
 
 <script type="text/javascript">
     var message_Path = '/live2d/'
@@ -1079,7 +1430,29 @@ menulist.eq(i).show();
     loadlive2d("live2d", "https://nongshuqiner.github.io//media/live2d/assets/tororo.model.json");
 </script>
 
-<!-------------------- live2d功能👆 --------------------------->
+<!------------------ 加载live2d模型功能（看板娘）👆 ---------------->
+
+
+<!----------------------- 返回顶部按钮功能👇 --------------------->
+<script>
+    $(function () {
+        $('.toggleContainer').click(function () {
+            $('html,body').animate({
+                scrollTop: '0px'
+            }, 800);
+        });
+        $(window).scroll(function () {
+            var st = $(window).scrollTop();
+            if (st > 30) {
+                $(".toggleContainer").fadeIn(400);
+            } else {
+                $(".toggleContainer").fadeOut(100);
+            }
+        });
+    });
+</script>
+<!----------------------- 返回顶部按钮功能👆 --------------------->
+
 
 <!------------ 加载全局背景图功能👇（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
 <script>
@@ -1100,4 +1473,29 @@ menulist.eq(i).show();
 </script>
 <!------------ 加载全局背景图功能👆（开始时没有写好，这功能有点鸡肋/(ㄒoㄒ)/~~） -->
 
+
+
+
 <script src="https://nongshuqiner.github.io//media/js/index.js"></script>
+
+
+<script>
+    //加载后的事件同步（阅读量、移动端评论等
+    window.onload = function () {
+    //代码块高亮渲染
+    document.querySelectorAll('pre code').forEach((block) => {
+            hljs.highlightBlock(block);
+    });
+        getHotnum();
+        var sharepc = $(".share").eq(0).html();
+        $(".share").eq(1).html(sharepc);   //插件只会寻找一个分享标签渲染，所以需要手动添加到移动端
+        aplayerbtnInit();
+        $(".hljs").css({
+            "padding": "20px"
+        })
+    }
+</script>
+
+<!-- <script src="https://nongshuqiner.github.io//media/js/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@3.13.0/dist/av-min.js"></script> -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/leancloud-storage@4.6.1/dist/av-live-query-min.js"></script> -->

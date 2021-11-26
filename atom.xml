@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nongshuqiner.github.io/</id>
     <title>yanmoer&apos;s blog</title>
-    <updated>2021-11-26T10:51:28.397Z</updated>
+    <updated>2021-11-26T14:36:22.713Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nongshuqiner.github.io/"/>
     <link rel="self" href="https://nongshuqiner.github.io/atom.xml"/>
@@ -10,6 +10,265 @@
     <logo>https://nongshuqiner.github.io/images/avatar.png</logo>
     <icon>https://nongshuqiner.github.io/favicon.ico</icon>
     <rights>All rights reserved 2021, yanmoer&apos;s blog</rights>
+    <entry>
+        <title type="html"><![CDATA[NodeJS: 从零开始做一个类似vue-cli的简单脚手架]]></title>
+        <id>https://nongshuqiner.github.io/post/create-node-my-cli/</id>
+        <link href="https://nongshuqiner.github.io/post/create-node-my-cli/">
+        </link>
+        <updated>2021-11-26T10:57:19.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="1安装node">1.安装<a href="https://nodejs.org/zh-cn/">node</a></h2>
+<p>你需要安装node。安装好后可以通过 <code>node -v</code> 查看node版本。</p>
+<h2 id="2创建文件与初始化">2.创建文件与初始化</h2>
+<p>我用的是Mac（windows同理），在终端，任意目录下，执行下面命令：</p>
+<pre><code>mkdir my-cli
+cd my-cli
+npm init -y
+</code></pre>
+<h2 id="3创建项目结构">3.创建项目结构</h2>
+<pre><code>mkdir bin script docs
+touch index.js REDEAD.md bin/my-cli.js script/init.js
+</code></pre>
+<h2 id="4安装必要包">4.安装必要包</h2>
+<pre><code>npm install chalk co-prompt co commander download-git-repo inquirer ora --save-dev
+</code></pre>
+<p>包说明：<br>
+<a href="https://www.npmjs.com/package/download-git-repo">download-git-repo</a><br>
+<a href="https://www.npmjs.com/package/commander">commander</a><br>
+<a href="https://www.npmjs.com/package/chalk">chalk</a><br>
+<a href="https://www.npmjs.com/package/co-prompt">co-prompt</a><br>
+<a href="https://www.npmjs.com/package/co">co</a><br>
+<a href="https://www.npmjs.com/package/inquirer">inquirer</a><br>
+<a href="https://www.npmjs.com/package/ora">ora</a></p>
+<h2 id="5修改packagejson">5.修改package.json</h2>
+<p>在package.json文件中加入bin命令</p>
+<pre><code>{
+  &quot;name&quot;: &quot;my-cli&quot;,
+  &quot;version&quot;: &quot;1.0.0&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;main&quot;: &quot;index.js&quot;,
+  &quot;scripts&quot;: {
+    &quot;test&quot;: &quot;echo \&quot;Error: no test specified\&quot; &amp;&amp; exit 1&quot;
+  },
+  &quot;bin&quot;: {
+    &quot;my-cli&quot;: &quot;./bin/my-cli.js&quot;
+  },
+  &quot;keywords&quot;: [],
+  &quot;author&quot;: &quot;&quot;,
+  &quot;license&quot;: &quot;ISC&quot;,
+  &quot;devDependencies&quot;: {
+    &quot;chalk&quot;: &quot;^4.1.0&quot;,
+    &quot;co&quot;: &quot;^4.6.0&quot;,
+    &quot;co-prompt&quot;: &quot;^1.0.0&quot;,
+    &quot;commander&quot;: &quot;^7.1.0&quot;,
+    &quot;download-git-repo&quot;: &quot;^3.0.2&quot;,
+    &quot;inquirer&quot;: &quot;^8.0.0&quot;,
+    &quot;ora&quot;: &quot;^5.4.0&quot;
+  }
+}
+</code></pre>
+<h2 id="6其他辅助文件配置">6.其他辅助文件配置</h2>
+<p>新建 <code>.editorconfig</code>，<code>.gitignore</code>等文件</p>
+<pre><code>touch .editorconfig .gitignore .npmrc
+</code></pre>
+<p>.editorconfig</p>
+<pre><code>root = true
+
+[*]
+charset = utf-8
+indent_style = space
+indent_size = 4
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+</code></pre>
+<p>.gitignore</p>
+<pre><code>.DS_Store
+node_modules
+/dist
+
+# local env files
+.env.local
+.env.*.local
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+</code></pre>
+<p>.npmrc</p>
+<pre><code>save-exact=true
+</code></pre>
+<p>至此，项目结构如下：</p>
+<figure data-type="image" tabindex="1"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/1.png" alt="项目结构" loading="lazy"></figure>
+<h2 id="7编写内容">7.编写内容</h2>
+<p><code>bin/my-cli.js</code> 是主文件，作为整个脚本运行的入口。</p>
+<p><code>index.js</code>我们作为主要内容文件。</p>
+<p><code>bin/my-cli.js</code></p>
+<pre><code>#!/usr/bin/env node
+require('../index')
+</code></pre>
+<blockquote>
+<p>注意：文件开头需要加上 #! /usr/bin/env node，用来说运行环境。</p>
+</blockquote>
+<p><code>index.js</code></p>
+<pre><code>
+const {
+    resolve
+} = require(&quot;path&quot;)
+const program = require(&quot;commander&quot;)
+const packageJson = require(&quot;./package.json&quot;)
+
+const res = command =&gt; resolve(__dirname, 'script/', command)
+
+process.env.NODE_PATH = __dirname + &quot;/node_modules&quot;
+
+console.log(process.env.NODE_PATH, res(&quot;init&quot;))
+
+program
+    .version(packageJson.version)
+
+program
+    .usage(&quot;&lt;command&gt;&quot;)
+
+program
+    .command(&quot;init&quot;)
+    .description(&quot;Generate a new node project&quot;)
+    .alias(&quot;i&quot;)
+    .action(() =&gt; {
+        require(res(&quot;init&quot;))
+    })
+
+program.parse(process.argv)
+
+
+// 判断终端上输入出来bin中的命令是否还有其他值，如果没有终端会直接输出help
+if (!program.args || program.args.length === 0) {
+    program.help()
+}
+</code></pre>
+<p><code>script/init.js</code>是运行 <code>my-cli init</code>时，执行的内容，如下：</p>
+<pre><code>const inquirer = require(&quot;inquirer&quot;);
+const program = require(&quot;commander&quot;);
+const chalk = require(&quot;chalk&quot;);
+const download = require(&quot;download-git-repo&quot;);
+const ora = require(&quot;ora&quot;);
+const spinner = ora(&quot;Downloading please wait......&quot;);
+const fs = require(&quot;fs&quot;);
+const path = require(&quot;path&quot;);
+const option = program.parse(process.argv).args[0];
+const defaultName = typeof option === &quot;string&quot; ? option : &quot;my-app&quot;;
+
+const questionList = [{
+  type: 'input',
+  name: 'Project name',
+  message: 'Project name',
+  default: defaultName,
+  filter(val) {
+    return val.trim()
+  },
+  validate(val) {
+    const validate = (val.trim().split(&quot; &quot;)).length === 1
+    return validate || 'Project name is not allowed to have spaces ';
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: 'input',
+  name: 'description',
+  message: 'Project description',
+  default: '这是一个项目',
+  validate(val) {
+    return true;
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: 'input',
+  name: 'author',
+  message: 'Author',
+  default: 'author',
+  validate(val) {
+    return true;
+  },
+  transformer(val) {
+    return chalk.blue(val);
+  }
+}, {
+  type: &quot;list&quot;,
+  name: &quot;program type&quot;,
+  message: &quot;程序类型&quot;,
+  choices: [
+    &quot;Nodejs&quot;,
+    &quot;Typescript&quot;
+  ],
+  default: &quot;nodejs&quot;,
+  filter: function(val) {
+    return val.toLowerCase();
+  }
+}]
+
+// 根据用户选择的语言去配置对应的配置文件
+inquirer.prompt(questionList).then(answers =&gt; {
+  console.log(answers)
+  spinner.start();
+  setTimeout(() =&gt; {
+    spinner.stop();
+    console.log(chalk.red(&quot;项目初始化成功&quot;));
+  }, 500)
+})
+</code></pre>
+<h2 id="8调试">8.调试</h2>
+<p>在运行代码时，需要本地调试，可通过下面命令的形式调试。</p>
+<pre><code>node ./bin/my-cli.js
+</code></pre>
+<p>例：</p>
+<figure data-type="image" tabindex="2"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/2.png" alt="node ./bin/my-cli.js" loading="lazy"></figure>
+<h2 id="9全局安装">9.全局安装</h2>
+<p>我们进入npm全局安装的文件里：</p>
+<pre><code>cd /usr/local/lib/node_modules
+</code></pre>
+<blockquote>
+<p>注意：我的是mac，如果你是window此方式不能进去，你需要自己寻找一下具体目录。</p>
+</blockquote>
+<p>我们可以看到目前我们全局安装的npm包，如下：</p>
+<figure data-type="image" tabindex="3"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/3.png" alt="全局已经安装的npm包" loading="lazy"></figure>
+<p>在我们 <code>my-cli</code> 目录下执行：</p>
+<pre><code>npm install -g
+</code></pre>
+<blockquote>
+<p>每当你修改内容时，需要再次npm install -g，否则内容将不会生效</p>
+</blockquote>
+<p>这时，我们可以看到全局安装npm包的目录下多了我们的脚手架：</p>
+<figure data-type="image" tabindex="4"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/4.png" alt="/usr/local/lib/node_modules" loading="lazy"></figure>
+<p>然后，我们找到任意目录执行：</p>
+<pre><code>my-cli
+</code></pre>
+<p>就可以看到命令行对于我们脚手架的提示了：</p>
+<figure data-type="image" tabindex="5"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/5.png" alt="my-cli" loading="lazy"></figure>
+<p>然后我们执行我们的脚手架的安装命令：</p>
+<pre><code>my-cli init
+</code></pre>
+<figure data-type="image" tabindex="6"><img src="https://nongshuqiner.github.io//post-images/code/create-node-my-cli/6.png" alt="my-cli init" loading="lazy"></figure>
+<blockquote>
+<p>由于本程序最后我只是做个简单的输出演示操作，故此没有任何文件产生。</p>
+</blockquote>
+<h2 id="10将编写好的cli发布到npm中">10.将编写好的cli发布到npm中</h2>
+<p>参考：<a href="https://www.jianshu.com/p/14e5b3917d19">发布一个 npm 包，构建自己的第三方库</a></p>
+<h2 id="11cli脚手架的使用">11.cli脚手架的使用</h2>
+<p>命令行输入my-cli查看帮助</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[生成树结构（generate tree）]]></title>
         <id>https://nongshuqiner.github.io/post/generate-tree/</id>
