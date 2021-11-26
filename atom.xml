@@ -1,22 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://nongshuqiner.github.io/</id>
-    <title>Gridea</title>
-    <updated>2021-11-26T09:19:58.787Z</updated>
+    <title>nongshuqiner</title>
+    <updated>2021-11-26T10:18:02.206Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://nongshuqiner.github.io/"/>
     <link rel="self" href="https://nongshuqiner.github.io/atom.xml"/>
     <subtitle>悟时超十地三乘，凝滞了四生六道...</subtitle>
     <logo>https://nongshuqiner.github.io/images/avatar.png</logo>
     <icon>https://nongshuqiner.github.io/favicon.ico</icon>
-    <rights>All rights reserved 2021, Gridea</rights>
+    <rights>All rights reserved 2021, nongshuqiner</rights>
     <entry>
-        <title type="html"><![CDATA[生成树结构（一维数组转树形结构、生成树菜单）]]></title>
-        <id>https://nongshuqiner.github.io/post/sheng-cheng-shu-jie-gou-yi-wei-shu-zu-zhuan-shu-xing-jie-gou-sheng-cheng-shu-cai-dan/</id>
-        <link href="https://nongshuqiner.github.io/post/sheng-cheng-shu-jie-gou-yi-wei-shu-zu-zhuan-shu-xing-jie-gou-sheng-cheng-shu-cai-dan/">
+        <title type="html"><![CDATA[生成树结构（generate tree）]]></title>
+        <id>https://nongshuqiner.github.io/post/generate-tree/</id>
+        <link href="https://nongshuqiner.github.io/post/generate-tree/">
         </link>
         <updated>2021-11-26T07:56:27.000Z</updated>
-        <content type="html"><![CDATA[<p>generate-tree.js</p>
+        <content type="html"><![CDATA[<h2 id="generate-tree">generate-tree</h2>
+<blockquote>
+<p>把<code>一维数组</code>转为<code>树形结构</code>或者<code>生成树菜单</code>。</p>
+</blockquote>
+<p>新建generate-tree.js，复制一下代码：</p>
 <pre><code>/**
  * 生成树结构
  * Callback:
@@ -57,7 +61,7 @@ export const generateTree = function (
   return tmpTree;
 }
 </code></pre>
-<p>使用案例:</p>
+<h2 id="使用案例">使用案例:</h2>
 <pre><code>// example:
 const data = [{
     &quot;createTime&quot;: &quot;2021-10-27 11:32:00&quot;,
@@ -177,10 +181,8 @@ let tree = generateTree(
 );
 console.log(tree);
 </code></pre>
-<p>结果：</p>
-<figure data-type="image" tabindex="1"><img src="https://upload-images.jianshu.io/upload_images/4645892-df02c3761df89cbb.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240" alt="generateTree运行结果" loading="lazy"></figure>
-<h2 id="结语">结语</h2>
-<p>提示：后面还有精彩敬请期待，请大家关注我的专题：<a href="http://www.jianshu.com/c/3cd9ede78e18">web前端</a>。如有意见可以进行评论，每一条评论我都会认真对待。</p>
+<h2 id="结果">结果：</h2>
+<figure data-type="image" tabindex="1"><img src="https://nongshuqiner.github.io//post-images/code/generateTree/generate-tree-run-result.png" alt="generateTree运行结果" loading="lazy"></figure>
 ]]></content>
     </entry>
 </feed>
